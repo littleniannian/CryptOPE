@@ -13,9 +13,7 @@ public:
     }
 
     static bool decodeBoolean(const std::vector<uint8_t>& value) {
-        if (value.size() != 1) {
-            throw std::runtime_error("Invalid byte array length.");
-        }
+        checkLength(&value, 1);
         return value[0] != 0;
     }
 
@@ -28,9 +26,7 @@ public:
     }
 
     static int16_t decodeShort(const std::vector<uint8_t>& value) {
-        if (value.size() != 2) {
-            throw std::runtime_error("Invalid byte array length.");
-        }
+        checkLength(&value, 2);
         uint16_t v = static_cast<uint16_t>(value[0]) << 8 | value[1];
         return static_cast<int16_t>(v) + std::numeric_limits<int16_t>::min();
     }
@@ -46,9 +42,7 @@ public:
     }
 
     static int32_t decodeInt(const std::vector<uint8_t>& value) {
-        if (value.size() != 4) {
-            throw std::runtime_error("Invalid byte array length.");
-        }
+        checkLength(&value, 4);
         uint32_t v = static_cast<uint32_t>(value[0]) << 24 |
                      static_cast<uint32_t>(value[1]) << 16 |
                      static_cast<uint32_t>(value[2]) << 8 |
@@ -71,9 +65,7 @@ public:
     }
 
     static int64_t decodeLong(const std::vector<uint8_t>& value) {
-        if (value.size() != 8) {
-            throw std::runtime_error("Invalid byte array length.");
-        }
+        checkLength(&value, 8);
         uint64_t v = static_cast<uint64_t>(value[0]) << 56 |
                      static_cast<uint64_t>(value[1]) << 48 |
                      static_cast<uint64_t>(value[2]) << 40 |
@@ -91,16 +83,14 @@ public:
 
         if ((buffer[0] & 0x80) == 0) { buffer[0] |= 0x80; }
         else {
-            for (size_t i = 0; i < buffer.size(); i++) { buffer[i] = ~buffer[i]; }
+            for (unsigned char & i : buffer) { i = ~i; }
         }
 
         return buffer;
     }
 
     static float decodeFloat(const std::vector<uint8_t>& value) {
-        if (value.size() != 4) {
-            throw std::runtime_error("Invalid byte array length.");
-        }
+        checkLength(&value, 4);
 
         std::vector<uint8_t> buffer(4);
         std::memcpy(buffer.data(), value.data(), 4);
@@ -121,16 +111,14 @@ public:
 
         if ((buffer[0] & 0x80) != 0) { buffer[0] &= 0x7f; }
         else {
-            for (size_t i = 0; i < buffer.size(); i++) { buffer[i] = ~buffer[i]; }
+            for (unsigned char & i : buffer) { i = ~i; }
         }
 
         return buffer;
     }
 
     static double decodeDouble(const std::vector<uint8_t>& value) {
-        if (value.size() != 8) {
-            throw std::runtime_error("Invalid byte array length.");
-        }
+        checkLength(&value, 8);
 
         std::vector<uint8_t> buffer(8);
         std::memcpy(buffer.data(), value.data(), 8);
@@ -153,9 +141,7 @@ public:
     }
 
     static char decodeChar(const std::vector<uint8_t>& value) {
-        if (value.size() != 2) {
-            throw std::runtime_error("Invalid byte array length.");
-        }
+        checkLength(&value, 2);
         return static_cast<char>((value[0] << 8) | value[1]);
     }
 
