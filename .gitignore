@@ -1,0 +1,73 @@
+# 编译生成的可执行文件
+/bin/
+/build/
+
+# CMake生成的构建文件和临时文件
+cmake-build-*/
+
+# 自动生成的Makefile
+Makefile
+
+# 编译器生成的对象文件
+*.o
+
+# 编译器生成的库文件
+*.a
+*.lib
+
+# 编译器生成的动态库文件
+*.so
+*.dll
+*.dylib
+
+# 编译器生成的PDB文件（用于Windows上的调试）
+*.pdb
+
+# 编译器生成的日志文件
+*.log
+
+# 编译器生成的临时文件
+*.tmp
+
+# 编译器生成的备份文件
+*~
+
+# CLion生成的项目文件
+.idea/
+
+# Visual Studio Code生成的项目文件
+.vscode/
+
+# 其他编辑器生成的项目文件
+*.sublime-project
+*.sublime-workspace
+*.vs
+
+# 编译器生成的CMake配置文件
+CMakeLists.txt.user
+
+# 编译器生成的Visual Studio解决方案文件
+*.sln
+
+# 编译器生成的Visual Studio项目文件
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# 编译器生成的Xcode项目文件
+*.xcodeproj
+
+# 编译器生成的Xcode工作区文件
+*.xcworkspace
+
+# 编译器生成的Eclipse项目文件
+.project
+.cproject
+
+# 编译器生成的Code::Blocks项目文件
+*.cbp
+
+# 编译器生成的Qt项目文件
+*.pro.user
+*.qbs.user
+*.qmake.stash
