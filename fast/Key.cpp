@@ -14,10 +14,6 @@ public:
         return encrypt(Encoder::encodeBoolean(plaintext));
     }
 
-    std::vector<unsigned char> encryptByte(unsigned char plaintext) {
-        return encrypt(Encoder::encodeByte(plaintext));
-    }
-
     std::vector<unsigned char> encryptShort(short plaintext) {
         return encrypt(Encoder::encodeShort(plaintext));
     }
@@ -50,10 +46,6 @@ public:
 
     bool decryptBoolean(const std::vector<unsigned char>& ciphertext) {
         return Encoder::decodeBoolean(decrypt(ciphertext));
-    }
-
-    unsigned char decryptByte(const std::vector<unsigned char>& ciphertext) {
-        return Encoder::decodeByte(decrypt(ciphertext));
     }
 
     short decryptShort(const std::vector<unsigned char>& ciphertext) {
