@@ -20,7 +20,7 @@ ZZFromString(const std::string &s)
 
 
 // converts ZZ to and from a string representing the number in decimal
-
+// these two method make encrypt failed
 inline std::string
 DecStringFromZZ(const NTL::ZZ & x) {
     std::stringstream ss;

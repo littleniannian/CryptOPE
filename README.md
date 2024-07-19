@@ -3,6 +3,7 @@ This repo have two order-preserving encryption algorithm, fastOPE and hgd ope(fr
 
 ## Use Case
 ### FastOPE
+FastOPE不支持浮点数的保序加密
 ```c++
 int main() {
     FastOpeCipher * fastOpeCipher = new FastOpeCipher();
@@ -44,17 +45,37 @@ int main() {
     }
 ```
 ### CryptDB OPE
+支持非负(整数/浮点数)
 ```c++
 int main() {
     std::string key = "secret aes key!!";
     unsigned int ptextsize = 32;
     unsigned int ctextsize = 64;
     OPE * ope = new OPE(key, ptextsize, ctextsize);
+    // 整数
     NTL::ZZ enc100 = ope->encrypt(100);
     ZZ dec100 = ope->decrypt(enc100);
     std::cout << "enc_result: " << enc100 << std::endl;
     std::cout << "dec_result: " << dec100 << std::endl;
+
+
+    // 浮点数
+    std::string doubleString[] = {
+    "1000.2",
+    "1500.4",
+    "2000.4",
+    "5000.1",
+    "10000.4",
+    "20000.3",
+    "30000.5" };
+        for (const string& doubleStr : doubleString) {
+        NTL::ZZ encrypt = ope->encrypt(ZZFromString(doubleStr));
+        string decrypt = StringFromZZ(ope->decrypt(encrypt));
+        std::cout << "plain: " << doubleStr << " encrypt: " << encrypt << " decrypt: " << decrypt << std::endl;
+    }
     delete ope;
 }
+
+
 
 ```
