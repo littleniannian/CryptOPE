@@ -7,11 +7,11 @@ set(OPENSSL_DIR /opt/homebrew/Cellar/openssl@3/3.3.1)
 set(GMP_DIR /opt/homebrew/Cellar/gmp/6.3.0)
 set(BOOST_DIR /opt/homebrew/Cellar/boost/1.85.0)
 
-add_executable(CryptOPE hgd/main.cpp hgd/ope.cc
-        hgd/hgd.cc
-        hgd/cwrap.cc
-        hgd/prng.cc
-        hgd/zz.cc
+add_executable(CryptOPE cryptdb/main.cpp cryptdb/ope.cc
+        cryptdb/hgd.cc
+        cryptdb/cwrap.cc
+        cryptdb/prng.cc
+        cryptdb/zz.cc
         fast/OpeException.cpp
         fast/Encoder.cpp
         fast/Cipher.cpp

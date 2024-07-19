@@ -134,7 +134,7 @@ public:
             mp::import_bits(blockCipher, blockBytes.begin(), blockBytes.end());
             int plaintextOffset = block * plaintextBytesPerBlock;
             for (int i = plaintextBytesPerBlock - 1; i >= 0; i--) {
-                mp::cpp_int cipher = (blockCipher & ciphertextBitMask);
+                auto cipher = (blockCipher & ciphertextBitMask).convert_to<long long>();
                 blockCipher >>= ciphertextBitsPerByte;
                 uint8_t b = 0;
                 long long a = f(0, 0);

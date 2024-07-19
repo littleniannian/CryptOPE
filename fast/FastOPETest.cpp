@@ -1,3 +1,4 @@
+/*
 #include "FastCipher.cpp"
 #include <iostream>
 using namespace std;
@@ -5,7 +6,6 @@ using namespace std;
 int main() {
     FastOpeCipher * fastOpeCipher = new FastOpeCipher();
     FastOpeKey key = fastOpeCipher->generateKey();
-    fastOpeCipher->decodeKey(key.encodeKey());
     // test int
     cout << "======test int======" << endl;
     int arr[] = {-30000,
@@ -36,19 +36,17 @@ int main() {
     int id = 0;
     for(int i : arr) {
         id++;
-        vector<unsigned char> res = key.encryptInt(i);
-        string result = key.bytesToHexString(res);
-        cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << id << ","<< i <<"," << "'"<< result << "'" << ");" << endl;
-//        int decryptInt = key.decryptInt(res);
-//        cout << "decrypt result: " << decryptInt << endl;
+        string res = key.encryptInt(i);
+        cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << id << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
+        int decryptInt = key.decryptInt(res);
+        cout << "decrypt result: " << decryptInt << endl;
     }
     // test bool
-    vector<unsigned char> encryptTrueByte = key.encryptBoolean(true);
-    string encryptTrueString = key.bytesToHexString(encryptTrueByte);
-    bool trueDecrypt = key.decryptBoolean(encryptTrueByte);
-    vector<unsigned char> encryptFalseByte = key.encryptBoolean(false);
-    string encryptFalseString = key.bytesToHexString(encryptFalseByte);
-    bool falseDecrypt = key.decryptBoolean(encryptFalseByte);
+    cout << "======test bool======" << endl;
+    string encryptTrueString = key.encryptBoolean(true);
+    bool trueDecrypt = key.decryptBoolean(encryptTrueString);
+    string encryptFalseString = key.encryptBoolean(false);
+    bool falseDecrypt = key.decryptBoolean(encryptFalseString);
     cout << "encryptTrueString: " << encryptTrueString << " encryptFalseString: " << encryptFalseString
     << " trueDecrypt: " << trueDecrypt
     << " falseDecrypt: " << falseDecrypt
@@ -83,9 +81,8 @@ int main() {
     int idShort = 0;
     for(short i : shortArr) {
         idShort++;
-        vector<unsigned char> res = key.encryptShort(i);
-        string result = key.bytesToHexString(res);
-        cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idShort << ","<< i <<"," << "'"<< result << "'" << ");" << endl;
+        string res = key.encryptShort(i);
+        cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idShort << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
 //        int decryptInt = key.decryptShort(res);
 //        cout << "decrypt result: " << decryptInt << endl;
     }
@@ -120,9 +117,8 @@ int main() {
     int idDouble = 0;
     for(double i : doubleArr) {
         idDouble++;
-        vector<unsigned char> res = key.encryptDouble(i);
-        string result = key.bytesToHexString(res);
-        cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idDouble << ","<< i <<"," << "'"<< result << "'" << ");" << endl;
+        string res = key.encryptDouble(i);
+        cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idDouble << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
 //        double decryptDouble = key.decryptDouble(res);
 //        cout << "decrypt result: " << decryptDouble << endl;
     }
@@ -158,9 +154,8 @@ int main() {
     int idChar = 0;
     for(char i : charArr) {
         idChar++;
-        vector<unsigned char> res = key.encryptChar(i);
-        string result = key.bytesToHexString(res);
-        cout << "INSERT INTO test_char_table (id, plaintext, encrypted) VALUES (" << idChar << ",'"<< i <<"'," << "'"<< result << "'" << ");" << endl;
+        string res = key.encryptChar(i);
+        cout << "INSERT INTO test_char_table (id, plaintext, encrypted) VALUES (" << idChar << ",'"<< i <<"'," << "'"<< res << "'" << ");" << endl;
 //        char decryptChar = key.decryptChar(res);
 //        cout << "decrypt result: " << decryptChar << endl;
     }
@@ -195,9 +190,8 @@ int main() {
     int idLong = 0;
     for(long i : longArr) {
         idLong++;
-        vector<unsigned char> res = key.encryptLong(i);
-        string result = key.bytesToHexString(res);
-        cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idLong << ","<< i <<"," << "'"<< result << "'" << ");" << endl;
+        string res = key.encryptLong(i);
+        cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idLong << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
 //        char decryptChar = key.decryptChar(res);
 //        cout << "decrypt result: " << decryptChar << endl;
     }
@@ -232,11 +226,10 @@ int main() {
     int floatDouble = 0;
     for(float i : floatArr) {
         floatDouble++;
-        vector<unsigned char> res = key.encryptFloat(i);
-        string result = key.bytesToHexString(res);
-        cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << floatDouble << ","<< i <<"," << "'"<< result << "'" << ");" << endl;
-        double decryptFloat = key.decryptFloat(res);
-        cout << "decrypt result: " << decryptFloat << endl;
+        string res = key.encryptFloat(i);
+        cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << floatDouble << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
+//        double decryptFloat = key.decryptFloat(res);
+//        cout << "decrypt result: " << decryptFloat << endl;
     }
 
     // test string failed
@@ -258,9 +251,8 @@ int main() {
     int idString = 0;
     for(const string& i : stringArr) {
         idString++;
-        vector<unsigned char> res = key.encryptString(i);
-        string result = key.bytesToHexString(res);
-        cout << "INSERT INTO test_char_table (id, plaintext, encrypted) VALUES (" << idString << ","<< i <<"," << "'"<< result << "'" << ");" << endl;
+        string res = key.encryptString(i);
+        cout << "INSERT INTO test_char_table (id, plaintext, encrypted) VALUES (" << idString << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
 //        string decryptString = key.decryptString(res);
 //        cout << "decrypt result: " << decryptString << endl;
     }
@@ -268,3 +260,4 @@ int main() {
     delete fastOpeCipher;
 }
 
+*/

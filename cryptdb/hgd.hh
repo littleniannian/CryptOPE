@@ -7,7 +7,7 @@
  * the KK sample.
  *
  * The implementation is based on an adaptation of the H2PEC alg for large
- * numbers; see hgd.cc for details
+ * numbers; see cryptdb.cc for details
  */
 NTL::ZZ HGD(const NTL::ZZ &KK,
             const NTL::ZZ &NN1,
