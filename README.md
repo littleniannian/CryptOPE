@@ -61,13 +61,13 @@ int main() {
 
     // 浮点数
     std::string doubleString[] = {
-    "1000.2",
-    "1500.4",
-    "2000.4",
-    "5000.1",
-    "10000.4",
-    "20000.3",
-    "30000.5" };
+        "1000.2",
+        "1500.4",
+        "2000.4",
+        "5000.1",
+        "10000.4",
+        "20000.3",
+        "30000.5" };
         for (const string& doubleStr : doubleString) {
         NTL::ZZ encrypt = ope->encrypt(ZZFromString(doubleStr));
         string decrypt = StringFromZZ(ope->decrypt(encrypt));

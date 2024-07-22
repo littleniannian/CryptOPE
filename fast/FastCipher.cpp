@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <cstring>
 #include "FastOpeKey.cpp"
 
 class FastOpeCipher {
@@ -34,30 +33,13 @@ public:
     }
 
     FastOpeKey decodeKey(std::vector<unsigned char> bytes) {
-//        std::vector<unsigned char> buffer(bytes, bytes + sizeof(long) + sizeof(double) * 3);
-//        std::memcpy(&buffer[0], bytes, buffer.size());
-//        std::vector<unsigned char> bufferCopy(buffer);
-//        std::vector<unsigned char> nBuf(sizeof(long));
-//        std::vector<unsigned char> alphaBuf(sizeof(double));
-//        std::vector<unsigned char> eBuf(sizeof(double));
-//        std::vector<unsigned char> kBuf(sizeof(long));
-//
-//        std::copy(bufferCopy.begin(), bufferCopy.begin() + sizeof(long), nBuf.begin());
-//        std::copy(bufferCopy.begin() + sizeof(long), bufferCopy.begin() + 2 * sizeof(long), alphaBuf.begin());
-//        std::copy(bufferCopy.begin() + 2 * sizeof(long), bufferCopy.begin() + 3 * sizeof(long), eBuf.begin());
-//        std::copy(bufferCopy.begin() + 3 * sizeof(long), bufferCopy.end(), kBuf.begin());
         ByteBuffer* buffer = new ByteBuffer(bytes.size());
         buffer->putBytes(bytes.data(), bytes.size());
         buffer->position(0);
-//        long n = *(long*)nBuf.data();
-//        double alpha = *(double*)alphaBuf.data();
-//        double e = *(double*)eBuf.data();
-//        long k = *(long*)kBuf.data();
         long n = buffer->getLong();
         double alpha = buffer->getDouble();
         double e = buffer->getDouble();
         long k = buffer->getLong();
-        std::cout << "n: " << n << "alpha: " << alpha << "e: " << e << "k: " << k << std::endl;
         return FastOpeKey(n, alpha, e, k);
     }
 };
