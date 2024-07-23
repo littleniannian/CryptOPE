@@ -1,4 +1,5 @@
 #include <iostream>
+#pragma once
 
 class OpeException : public std::exception {
 public:

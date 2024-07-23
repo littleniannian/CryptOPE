@@ -19,7 +19,11 @@ add_executable(CryptOPE cryptdb/main.cpp cryptdb/ope.cc
         fast/Key.cpp
         fast/FastOpeKey.cpp
         fast/FastOPETest.cpp
-        fast/ByteBuffer.h)
+        fast/ByteBuffer.h
+        mope/MopeCipher.cpp
+        mope/MopeKey.cpp
+        mope/MopeTest.cpp
+)
 
 target_include_directories(CryptOPE PUBLIC ${NTL_DIR}/include)
 target_link_libraries(CryptOPE ${NTL_DIR}/lib/libntl.a)

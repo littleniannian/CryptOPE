@@ -2,8 +2,10 @@
 #include <cmath>
 #include <vector>
 #include "FastOpeKey.cpp"
+#include "Cipher.cpp"
+#include "Key.cpp"
 
-class FastOpeCipher {
+class FastOpeCipher: public Cipher{
 private:
     static const int DEFAULT_TAU = 16;
     int tau;
@@ -19,7 +21,7 @@ public:
         this->tau = (tau > 0) ? tau : DEFAULT_TAU;
     }
 
-    FastOpeKey generateKey() {
+    Key* generateKey() {
         double alphaRandom = 0.8068468161678964;
         double eRandom = 0.9804490731282025;
         long kRandom = 3376402928302743966L;
@@ -28,11 +30,10 @@ public:
         double e = eRandom * alpha;
         long n = (long)ceil((double)tau / (beta * pow(e, 8)));
         long k = kRandom & 0x7fffffffffffffffL;
-        std::cout << "n: " << n << " alpha: " << alpha << " e: " << e << " k: " << k << std::endl;
-        return FastOpeKey(n, alpha, e, k);
+        return new FastOpeKey(n, alpha, e, k);
     }
 
-    FastOpeKey decodeKey(std::vector<unsigned char> bytes) {
+    Key* decodeKey(std::vector<unsigned char> bytes) {
         ByteBuffer* buffer = new ByteBuffer(bytes.size());
         buffer->putBytes(bytes.data(), bytes.size());
         buffer->position(0);
@@ -40,7 +41,7 @@ public:
         double alpha = buffer->getDouble();
         double e = buffer->getDouble();
         long k = buffer->getLong();
-        return FastOpeKey(n, alpha, e, k);
+        return new FastOpeKey(n, alpha, e, k);
     }
 };
 

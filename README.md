@@ -3,7 +3,7 @@ This repo have two order-preserving encryption algorithm, fastOPE and hgd ope(fr
 
 ## Use Case
 ### FastOPE
-FastOPE不支持浮点数的保序加密
+FastOPE不支持浮点数的保序加密，Mope加密后的无法保证顺序。
 ```c++
 int main() {
     FastOpeCipher * fastOpeCipher = new FastOpeCipher();

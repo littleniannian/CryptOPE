@@ -68,11 +68,6 @@ public:
     }
 
     std::vector<unsigned char> encodeKey() {
-//        std::vector<unsigned char> kBuffer(2 * sizeof(uint64_t) + 2 * sizeof(double));
-//        memcpy(kBuffer.data(), &n, sizeof(n));
-//        memcpy(kBuffer.data() + sizeof(n), &alpha, sizeof(alpha));
-//        memcpy(kBuffer.data() + 2 * sizeof(n), &e, sizeof(e));
-//        memcpy(kBuffer.data() + 2 * sizeof(n) + sizeof(alpha), &k, sizeof(k));
         ByteBuffer* buffer = new ByteBuffer(2 * sizeof(uint64_t) + 2 * sizeof(double));
         buffer->putLong(n);
         buffer->putDouble(alpha);

@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 #include <string>
 #include "ope.hh"
@@ -117,3 +118,4 @@ int main() {
     }
     delete ope;
 }
+*/

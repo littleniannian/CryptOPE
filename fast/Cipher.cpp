@@ -1,6 +1,8 @@
-#include "OpeException.cpp"
+#include "Key.cpp"
+#pragma once
+
 class Cipher {
 public:
-    virtual std::vector<unsigned char> generateKey() noexcept(false) = 0;
-    virtual std::vector<unsigned char> decodeKey(const std::vector<unsigned char>& bytes) noexcept(false) = 0;
+    virtual Key* generateKey() noexcept(false) = 0;
+    virtual Key* decodeKey(std::vector<unsigned char> bytes) noexcept(false) = 0;
 };

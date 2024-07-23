@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <sstream>
 #include "Encoder.cpp"
+#pragma once
 
 using namespace std;
 
