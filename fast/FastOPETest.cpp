@@ -83,16 +83,17 @@ int main() {
         idShort++;
         string res = key->encryptShort(i);
         cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idShort << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
-        int decryptInt = key->decryptShort(res);
+        // int decryptInt = key->decryptShort(res);
         // cout << "decrypt result: " << decryptInt << endl;
     }
 
     // test double failed
     cout << "======test double======" << endl;
-    double doubleArr[] = {-30000.1,
+    float doubleArr[] = {-30000.1,
                         -20000.3,
+                        -1
                         -10000.2,
-                        -5000.5,
+                        -10000.1,
                         -2000.3,
                         -1500.1,
                         -1000.2,
@@ -102,7 +103,7 @@ int main() {
                         -5.2,
                         -1.3,
                         0,
-                        1.8,
+                        1.3,
                         5.2,
                         10.4,
                         100.8,
@@ -115,12 +116,12 @@ int main() {
                         20000.1,
                         30000.5 };
     int idDouble = 0;
-    for(double i : doubleArr) {
+    for(float i : doubleArr) {
         idDouble++;
-        string res = key->encryptDouble(i);
+        string res = key->encryptFloat(i);
         cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idDouble << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
-//        double decryptDouble = key.decryptDouble(res);
-//        cout << "decrypt result: " << decryptDouble << endl;
+        // double decryptDouble = key->decryptFloat(res);
+        // cout << "decrypt result: " << decryptDouble << endl;
     }
 
     // test char
@@ -256,7 +257,6 @@ int main() {
 //        string decryptString = key.decryptString(res);
 //        cout << "decrypt result: " << decryptString << endl;
     }
-
     delete fastOpeCipher;
 }
 

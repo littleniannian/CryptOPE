@@ -51,7 +51,7 @@ public:
     }
 
     static std::vector<uint8_t> encodeLong(int64_t value) {
-        uint64_t v = static_cast<uint64_t>(value) - std::numeric_limits<int64_t>::min();
+        uint64_t v = static_cast<int64_t>(value) - std::numeric_limits<int64_t>::min();
         return {
                 static_cast<uint8_t>(v >> 56),
                 static_cast<uint8_t>(v >> 48),
@@ -78,58 +78,44 @@ public:
     }
 
     static std::vector<uint8_t> encodeFloat(float value) {
-        std::vector<uint8_t> buffer(4);
-        std::memcpy(buffer.data(), &value, 4);
-
-        if ((buffer[0] & 0x80) == 0) { buffer[0] |= 0x80; }
-        else {
-            for (unsigned char & i : buffer) { i = ~i; }
+        int32_t floatInt;
+        memcpy(&floatInt, &value, sizeof(value));
+        if (floatInt <0) {
+            floatInt = -floatInt - std::numeric_limits<int32_t>::max();
         }
-
-        return buffer;
+        return encodeInt(floatInt);
     }
 
     static float decodeFloat(const std::vector<uint8_t>& value) {
         checkLength(&value, 4);
 
-        std::vector<uint8_t> buffer(4);
-        std::memcpy(buffer.data(), value.data(), 4);
-
-        if ((buffer[0] & 0x80) != 0) { buffer[0] &= 0x7f; }
-        else {
-            for (size_t i = 0; i < buffer.size(); i++) { buffer[i] = ~buffer[i]; }
+        int32_t floatInt = decodeInt(value);
+        if (floatInt < 0) {
+            floatInt = -floatInt + std::numeric_limits<int32_t>::max();
         }
-
         float result;
-        std::memcpy(&result, buffer.data(), 4);
+        memcpy(&result, &floatInt, sizeof(result));
         return result;
     }
 
     static std::vector<uint8_t> encodeDouble(double value) {
-        std::vector<uint8_t> buffer(8);
-        std::memcpy(buffer.data(), &value, 8);
-
-        if ((buffer[0] & 0x80) != 0) { buffer[0] &= 0x7f; }
-        else {
-            for (unsigned char & i : buffer) { i = ~i; }
+        int64_t doubleInt;
+        memcpy(&doubleInt, &value, sizeof(value));
+        // 需要一个算法保证doubleInt和value一样是单调递增的，且不改变doubleInt的符号
+        if (doubleInt <0) {
+            doubleInt = -doubleInt - std::numeric_limits<int64_t>::max();
         }
-
-        return buffer;
+        return encodeLong(doubleInt);
     }
 
     static double decodeDouble(const std::vector<uint8_t>& value) {
         checkLength(&value, 8);
-
-        std::vector<uint8_t> buffer(8);
-        std::memcpy(buffer.data(), value.data(), 8);
-
-        if ((buffer[0] & 0x80) == 0) { buffer[0] |= 0x80; }
-        else {
-            for (size_t i = 0; i < buffer.size(); i++) { buffer[i] = ~buffer[i]; }
+        int64_t doubleInt = decodeLong(value);
+        if (doubleInt < 0) {
+            doubleInt = -doubleInt + std::numeric_limits<int64_t>::max();
         }
-
         double result;
-        std::memcpy(&result, buffer.data(), 8);
+        memcpy(&result, &doubleInt, sizeof(result));
         return result;
     }
 
