@@ -101,7 +101,6 @@ public:
     static std::vector<uint8_t> encodeDouble(double value) {
         int64_t doubleInt;
         memcpy(&doubleInt, &value, sizeof(value));
-        // 需要一个算法保证doubleInt和value一样是单调递增的，且不改变doubleInt的符号
         if (doubleInt <0) {
             doubleInt = -doubleInt - std::numeric_limits<int64_t>::max();
         }

@@ -45,7 +45,7 @@ int main() {
     }
 ```
 ### CryptDB OPE
-支持非负(整数/浮点数)
+支持非负整数
 ```c++
 int main() {
     std::string key = "secret aes key!!";
