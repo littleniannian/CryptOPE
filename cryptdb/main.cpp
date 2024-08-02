@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "ope.hh"
+#include <chrono>
 
 using namespace NTL;
 using namespace std;
@@ -15,23 +16,12 @@ int main() {
 //    const unsigned int AES_KEY_BYTES = AES_KEY_SIZE/bitsPerByte;
     // test int
     std::string key = "secret aes key!!";
-    unsigned int ptextsize = 96;
-    unsigned int ctextsize = 96;
+    unsigned int ptextsize = 32;
+    unsigned int ctextsize = 64;
     OPE * ope = new OPE(key, ptextsize, ctextsize);
     // test int 无法对负数进行正确对解密
     cout << "======test int======" << endl;
-    int arr[] = {-30000,
-                 -20000,
-                 -10000,
-                 -5000,
-                 -2000,
-                 -1500,
-                 -1000,
-                 -500,
-                 -100,
-                 -10,
-                 -5,
-                 -1,
+    int arr[] = {-1,
                  0,
                  1,
                  5,
@@ -45,11 +35,19 @@ int main() {
                  10000,
                  20000,
                  30000 };
-    for (int num : arr) {
-        NTL::ZZ encrypt = ope->encrypt(num);
-        ZZ decrypt = ope->decrypt(encrypt);
-        std::cout << "plain: " << num << " encrypt: " << encrypt << " decrypt: " << decrypt << std::endl;
+    auto start = std::chrono::high_resolution_clock::now();
+    for (int i = 0; i < 100000; i++) {
+        NTL::ZZ encrypt = ope->encrypt(i);
+        // ZZ decrypt = ope->decrypt(encrypt);
+        // std::cout << "plain: " << num << " encrypt: " << encrypt << " decrypt: " << decrypt << std::endl;
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    // 计算时间差
+    std::chrono::duration<double> duration = end - start;
+    // 打印运行时间
+    std::cout << "运行时间: " << duration.count() << " 秒" << std::endl;
+*/
+/*
     cout << "======test string======" << endl;
     // test string 当是负数时保序加密的结果是逆向的
     string arrString[] = {"-30000",
@@ -115,7 +113,8 @@ int main() {
         NTL::ZZ encrypt = ope->encrypt(ZZFromString(doubleStr));
         string decrypt = StringFromZZ(ope->decrypt(encrypt));
         std::cout << "plain: " << doubleStr << " encrypt: " << encrypt << " decrypt: " << decrypt << std::endl;
-    }
+    }*//*
+
     delete ope;
 }
 */

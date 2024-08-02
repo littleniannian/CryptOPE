@@ -14,7 +14,7 @@ add_executable(CryptOPE cryptdb/main.cpp cryptdb/ope.cc
         cryptdb/zz.cc
         fast/OpeException.cpp
         fast/Encoder.cpp
-        fast/Cipher.cpp
+        fast/Cipher.h
         fast/FastCipher.cpp
         fast/Key.cpp
         fast/FastOpeKey.cpp

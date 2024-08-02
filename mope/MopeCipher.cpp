@@ -1,7 +1,7 @@
 //
 // Created by Jarvis Yuen on 2024/7/22.
 //
-#include "../fast/Cipher.cpp"
+#include "../fast/Cipher.h"
 #include "MopeKey.cpp"
 
 class MopeCipher : public Cipher{

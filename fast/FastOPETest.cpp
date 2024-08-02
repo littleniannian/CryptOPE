@@ -1,11 +1,13 @@
 #include "FastCipher.cpp"
 #include <iostream>
 #include "Key.cpp"
+#include <chrono>
 using namespace std;
 
 int main() {
     FastOpeCipher * fastOpeCipher = new FastOpeCipher();
     Key* key = fastOpeCipher->generateKey();
+    key = fastOpeCipher->decodeKey(key->encodeKey());
     // test int
     cout << "======test int======" << endl;
     int arr[] = {-30000,
@@ -34,13 +36,14 @@ int main() {
                          20000,
                          30000 };
     int id = 0;
-    for(int i : arr) {
-        id++;
+    for (int i: arr) {
+       id++;
         string res = key->encryptInt(i);
         cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << id << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
         int decryptInt = key->decryptInt(res);
         cout << "decrypt result: " << decryptInt << endl;
     }
+
     // test bool
     cout << "======test bool======" << endl;
     string encryptTrueString = key->encryptBoolean(true);
@@ -51,6 +54,7 @@ int main() {
     << " trueDecrypt: " << trueDecrypt
     << " falseDecrypt: " << falseDecrypt
     << endl;
+
     // test short
     cout << "======test short======" << endl;
     short shortArr[] = {-30000,
@@ -257,6 +261,7 @@ int main() {
 //        string decryptString = key.decryptString(res);
 //        cout << "decrypt result: " << decryptString << endl;
     }
+
     delete fastOpeCipher;
 }
 

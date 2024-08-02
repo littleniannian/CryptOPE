@@ -67,7 +67,7 @@ public:
         ciphertextBytesPerBlock = plaintextBytesPerBlock * cipherBits / 8;
     }
 
-    std::vector<unsigned char> encodeKey() {
+    std::vector<unsigned char> encodeKey() override {
         ByteBuffer* buffer = new ByteBuffer(2 * sizeof(uint64_t) + 2 * sizeof(double));
         buffer->putLong(n);
         buffer->putDouble(alpha);
@@ -76,7 +76,7 @@ public:
         return buffer->array();
     }
 
-    std::vector<uint8_t> encrypt(const std::vector<uint8_t>& plaintext) {
+    std::vector<uint8_t> encrypt(const std::vector<uint8_t>& plaintext) override {
         int blockCount = (plaintext.size() + plaintextBytesPerBlock - 1) / plaintextBytesPerBlock;
         int ciphertextSize = blockCount * ciphertextBytesPerBlock + 1;
         int padding = blockCount * plaintextBytesPerBlock - plaintext.size();
@@ -114,7 +114,7 @@ public:
         return ciphertextBuffer->array();
     }
 
-    std::vector<uint8_t> decrypt(const std::vector<uint8_t>& ciphertext) {
+    std::vector<uint8_t> decrypt(const std::vector<uint8_t>& ciphertext) override {
         int blockCount = (ciphertext.size() - 1) / ciphertextBytesPerBlock;
         uint8_t plaintextSize = blockCount * plaintextBytesPerBlock - (ciphertext[ciphertext.size() - 1]);
         ByteBuffer plaintextBuffer(plaintextSize);

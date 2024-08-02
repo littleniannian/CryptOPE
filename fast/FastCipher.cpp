@@ -2,7 +2,7 @@
 #include <cmath>
 #include <vector>
 #include "FastOpeKey.cpp"
-#include "Cipher.cpp"
+#include "Cipher.h"
 #include "Key.cpp"
 
 class FastOpeCipher: public Cipher{
@@ -21,7 +21,7 @@ public:
         this->tau = (tau > 0) ? tau : DEFAULT_TAU;
     }
 
-    Key* generateKey() {
+    Key* generateKey() override {
         double alphaRandom = 0.8068468161678964;
         double eRandom = 0.9804490731282025;
         long kRandom = 3376402928302743966L;
@@ -33,7 +33,7 @@ public:
         return new FastOpeKey(n, alpha, e, k);
     }
 
-    Key* decodeKey(std::vector<unsigned char> bytes) {
+    Key* decodeKey(std::vector<unsigned char> bytes) override {
         ByteBuffer* buffer = new ByteBuffer(bytes.size());
         buffer->putBytes(bytes.data(), bytes.size());
         buffer->position(0);
