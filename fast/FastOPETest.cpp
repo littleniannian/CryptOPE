@@ -93,7 +93,7 @@ int main() {
 
     // test double failed
     cout << "======test double======" << endl;
-    float doubleArr[] = {-30000.1,
+    double doubleArr[] = {-30000.1,
                         -20000.3,
                         -1
                         -10000.2,
@@ -120,9 +120,9 @@ int main() {
                         20000.1,
                         30000.5 };
     int idDouble = 0;
-    for(float i : doubleArr) {
+    for(double i : doubleArr) {
         idDouble++;
-        string res = key->encryptFloat(i);
+        string res = key->encryptDouble(i);
         cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idDouble << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
         // double decryptDouble = key->decryptFloat(res);
         // cout << "decrypt result: " << decryptDouble << endl;
@@ -167,7 +167,7 @@ int main() {
 
     // test long
     cout << "======test long======" << endl;
-    short longArr[] = {-30000,
+    long longArr[] = {-30000,
                         -20000,
                         -10000,
                         -5000,
@@ -191,19 +191,20 @@ int main() {
                         5000,
                         10000,
                         20000,
-                        30000 };
+                        30000,
+                        9223372036854775807};
     int idLong = 0;
     for(long i : longArr) {
         idLong++;
         string res = key->encryptLong(i);
         cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idLong << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
-//        char decryptChar = key.decryptChar(res);
-//        cout << "decrypt result: " << decryptChar << endl;
+        // long decryptLong = key->decryptLong(res);
+        // cout << "decrypt result: " << decryptLong << endl;
     }
 
-    // test float failed
+    // test float
     cout << "======test float======" << endl;
-    double floatArr[] = {-30000.1,
+    float floatArr[] = {-30000.1,
                           -20000.3,
                           -10000.2,
                           -5000.5,
