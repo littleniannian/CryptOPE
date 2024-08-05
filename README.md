@@ -44,6 +44,12 @@ int main() {
     cout << "decrypt result: " << decryptInt << endl;
     }
 ```
+#### 密钥生成
+```c++
+Key* key = fastOpeCipher->generateKey();
+// encodeKey()将密钥转换成字节，可以将字节用Base64编码后进行传输。
+key = fastOpeCipher->decodeKey(key->encodeKey());
+```
 ### CryptDB OPE
 支持非负整数
 ```c++
