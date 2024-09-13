@@ -7,6 +7,8 @@ using namespace std;
 int main() {
     FastOpeCipher * fastOpeCipher = new FastOpeCipher();
     Key* key = fastOpeCipher->generateKey();
+    std::string keyString = key->bytesToHexString(key->encodeKey());
+    cout << "keyString: " << keyString << endl;
     key = fastOpeCipher->decodeKey(key->encodeKey());
     // test int
     cout << "======test int======" << endl;
@@ -124,7 +126,7 @@ int main() {
         idDouble++;
         string res = key->encryptDouble(i);
         cout << "INSERT INTO test_table (id, plaintext, encrypted) VALUES (" << idDouble << ","<< i <<"," << "'"<< res << "'" << ");" << endl;
-        // double decryptDouble = key->decryptFloat(res);
+        // double decryptDouble = key->decryptDouble(res);
         // cout << "decrypt result: " << decryptDouble << endl;
     }
 
